@@ -197,7 +197,7 @@ class Tetromino:
             self.create_new_tetromino()
 
     def rotate(self):
-        if self.shape != 'O':
+        if self.shape != 'O_Tetromino':
             pivot_position = self.blocks[0].pos
             new_block_positions = [block.rotate(pivot_position) for block in self.blocks]
 

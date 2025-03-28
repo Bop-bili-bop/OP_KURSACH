@@ -30,18 +30,22 @@ GREEN = '#65b32e'
 PURPLE = '#7b217f'
 CYAN = '#6cc6d9'
 ORANGE = '#f07e13'
+PINK = '#f389f5'
+CORAL = '#f68187'
+SKY_BLUE = '0098dc'
+BIEGE = 'f6ca9f'
 GRAY = '#1C1C1C'
 LINE_COLOR = '#FFFFFF'
 
 # shapes
 TETROMINOS = {
-	'T': {'shape': [(0,0), (-1,0), (1,0), (0,-1)], 'color': PURPLE},
-	'O': {'shape': [(0,0), (0,-1), (1,0), (1,-1)], 'color': YELLOW},
-	'J': {'shape': [(0,0), (0,-1), (0,1), (-1,1)], 'color': BLUE},
-	'L': {'shape': [(0,0), (0,-1), (0,1), (1,1)], 'color': ORANGE},
-	'I': {'shape': [(0,0), (0,-1), (0,-2), (0,1)], 'color': CYAN},
-	'S': {'shape': [(0,0), (-1,0), (0,-1), (1,-1)], 'color': GREEN},
-	'Z': {'shape': [(0,0), (1,0), (0,-1), (-1,-1)], 'color': RED}
+	'T_Tetromino': {'shape': [(0,0), (-1,0), (1,0), (0,-1)], 'color': BIEGE},
+	'O_Tetromino': {'shape': [(0,0), (0,-1), (1,0), (1,-1)], 'color': YELLOW},
+	'J_Tetromino': {'shape': [(0,0), (0,-1), (0,1), (-1,1)], 'color': BLUE},
+	'L_Tetromino': {'shape': [(0,0), (0,-1), (0,1), (1,1)], 'color': ORANGE},
+	'I_Tetromino': {'shape': [(0,0), (0,-1), (0,-2), (0,1)], 'color': CYAN},
+	'S_Tetromino': {'shape': [(0,0), (-1,0), (0,-1), (1,-1)], 'color': GREEN},
+	'Z_Tetromino': {'shape': [(0,0), (1,0), (0,-1), (-1,-1)], 'color': RED}
 }
 
 SCORE_DATA = {1: 100, 2: 300, 3: 700, 4: 1500, 5: 2500}
