@@ -32,14 +32,17 @@ CYAN = '#6cc6d9'
 ORANGE = '#f07e13'
 PINK = '#f389f5'
 CORAL = '#f68187'
-SKY_BLUE = '0098dc'
-BIEGE = 'f6ca9f'
+SKY_BLUE = '#0098dc'
+BEIGE = '#f6ca9f'
+TOXIC = '#8cff00'
 GRAY = '#1C1C1C'
 LINE_COLOR = '#FFFFFF'
 
+
+
 # shapes
 TETROMINOS = {
-	'T_Tetromino': {'shape': [(0,0), (-1,0), (1,0), (0,-1)], 'color': BIEGE},
+	'T_Tetromino': {'shape': [(0,0), (-1,0), (1,0), (0,-1)], 'color': PURPLE},
 	'O_Tetromino': {'shape': [(0,0), (0,-1), (1,0), (1,-1)], 'color': YELLOW},
 	'J_Tetromino': {'shape': [(0,0), (0,-1), (0,1), (-1,1)], 'color': BLUE},
 	'L_Tetromino': {'shape': [(0,0), (0,-1), (0,1), (1,1)], 'color': ORANGE},
@@ -47,5 +50,28 @@ TETROMINOS = {
 	'S_Tetromino': {'shape': [(0,0), (-1,0), (0,-1), (1,-1)], 'color': GREEN},
 	'Z_Tetromino': {'shape': [(0,0), (1,0), (0,-1), (-1,-1)], 'color': RED}
 }
+PENTOMINOS = {
+    'L_Pentomino': {'shape': [(0,0), (0,1), (0,2), (0, 3) ,(1,0)], 'color': GREEN},
+    'L_Pentomino_Mirrored': {'shape': [(0,0), (0,1), (0,2), (0,3), (-1,0)], 'color': GREEN},
+    'Z_Pentomino': {'shape': [(0,0), (1,0), (1,1), (0,-1), (-1,-1)], 'color': ORANGE},
+    'Z_Pentomino_Mirrored': {'shape': [(0,0), (-1,0), (-1,1), (0,-1), (1,-1)], 'color': ORANGE},
+    'Y_Pentomino': {'shape': [(0,0), (0,1), (0,2), (-1,2), (1,2)], 'color': PINK},
+    'Y_Pentomino_Mirrored': {'shape': [(0,0), (0,1), (0,2), (1,2), (-1,2)], 'color': PINK},
+    'X_Pentomino': {'shape': [(0,0), (1,0), (-1,0), (0,-1), (0,1)], 'color': CORAL},
+    'W_Pentomino': {'shape': [(0,0), (1,0), (0,-1), (-1,-1), (-1,-2)], 'color': SKY_BLUE},
+    'N_Pentomino': {'shape': [(0,0), (0,1), (-1,1), (1,0), (2,0)], 'color': BLUE},
+    'N_Pentomino_Mirrored': {'shape': [(0,0), (0,1), (1,1), (-1,0), (-2,0)], 'color': BLUE},
+    'P_Pentomino': {'shape': [(0,0), (0,1), (1,0), (1,-1), (0,-1)], 'color': GREEN},
+    'P_Pentomino_Mirrored': {'shape': [(0,0), (0,1), (-1,0), (-1,-1), (0,-1)], 'color': GREEN},
+    'V_Pentomino': {'shape': [(0,0), (1,0), (2,0), (0,-1), (0,-2)], 'color': BEIGE},
+    'F_Pentomino': {'shape': [(0,0), (1,0), (0,-1), (-1,0), (-1,1)], 'color': YELLOW},
+    'F_Pentomino_Mirrored': {'shape': [(0,0), (-1,0), (0,-1), (1,0), (1,1)], 'color': YELLOW},
+    'U_Pentomino': {'shape': [(0,0), (-1,0), (1,0), (-1,1), (1,1)], 'color': CYAN},
+    'T_Pentomino': {'shape': [(0,0), (-1,0), (1,0), (0,-1), (0,1)], 'color': PURPLE},
+    'I_Pentomino': {'shape': [(0,0), (0,-1), (0,-2), (0,1), (0,2)], 'color': RED}
+}
+
+SHAPE = TETROMINOS
+NO_ROTATE_SHAPES = ['O_Tetromino', 'X_Pentomino']
 
 SCORE_DATA = {1: 100, 2: 300, 3: 700, 4: 1500, 5: 2500}

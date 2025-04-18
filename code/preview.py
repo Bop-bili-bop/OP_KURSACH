@@ -11,7 +11,7 @@ class Preview:
 
         #shapes
         self.shape_surfaces = {shape: load(path.join('..', 'graphics', f'{shape}.png')).convert_alpha()
-                               for shape in TETROMINOS.keys()}
+                               for shape in SHAPE.keys()}
 
         #impg pos data
         self.increment_height = self.surface.get_height() / 3

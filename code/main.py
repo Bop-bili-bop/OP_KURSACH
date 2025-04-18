@@ -18,7 +18,7 @@ class Main:
 		pygame.display.set_caption('Tetris')
 
 		#shapes
-		self.next_shapes = [choice(list(TETROMINOS.keys())) for shape in range(3)]
+		self.next_shapes = [choice(list(SHAPE.keys())) for shape in range(3)]
 
 		#components
 		self.game = Game(self.get_next_shape, self.update_score)
@@ -38,7 +38,8 @@ class Main:
 
 	def get_next_shape(self):
 		next_shape = self.next_shapes.pop(0)
-		self.next_shapes.append(choice(list(TETROMINOS.keys())))
+		self.next_shapes.append(choice(list(SHAPE.keys())))
+		print(next_shape)
 		return next_shape
 
 	def run(self):

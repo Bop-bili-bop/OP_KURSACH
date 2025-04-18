@@ -33,7 +33,7 @@ class Game:
         #tetromino
         self.field_data = [[0 for x in range(COLUMNS)] for y in range(ROWS)]
         self.tetromino = Tetromino(
-            choice(list(TETROMINOS.keys())),
+            choice(list(SHAPE.keys())),
             self.sprites,
             self.create_new_tetromino,
             self.field_data)
@@ -164,8 +164,8 @@ class Tetromino:
     def __init__(self, shape, group, create_new_tetromino, field_data):
 
         self.shape = shape
-        self.block_positions = TETROMINOS[shape]['shape']
-        self.color = TETROMINOS[shape]['color']
+        self.block_positions = SHAPE[shape]['shape']
+        self.color = SHAPE[shape]['color']
         self.create_new_tetromino = create_new_tetromino
         self.field_data = field_data
         #create blocks
@@ -197,7 +197,7 @@ class Tetromino:
             self.create_new_tetromino()
 
     def rotate(self):
-        if self.shape != 'O_Tetromino':
+        if self.shape not in NO_ROTATE_SHAPES:
             pivot_position = self.blocks[0].pos
             new_block_positions = [block.rotate(pivot_position) for block in self.blocks]
 
