@@ -19,7 +19,6 @@ class Main:
 
 		#shapes
 		self.next_shapes = [choice(list(SHAPE.keys())) for shape in range(3)]
-
 		#components
 		self.game = Game(self.get_next_shape, self.update_score)
 		self.score = Score()
@@ -39,7 +38,6 @@ class Main:
 	def get_next_shape(self):
 		next_shape = self.next_shapes.pop(0)
 		self.next_shapes.append(choice(list(SHAPE.keys())))
-		print(next_shape)
 		return next_shape
 
 	def run(self):

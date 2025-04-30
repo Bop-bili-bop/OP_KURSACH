@@ -4,6 +4,7 @@ from random import choice
 from timer import Timer
 from sys import exit
 from os.path import join
+from shapemino import *
 
 class Game:
     def __init__(self, get_next_shape, update_score):
@@ -72,11 +73,21 @@ class Game:
         self.landing_sound.play()
         self.check_game_over()
         self.check_finished_rows()
-        self.tetromino = Tetromino(
-            self.get_next_shape(),
-            self.sprites,
-            self.create_new_tetromino,
-            self.field_data)
+        next_shape = self.get_next_shape()
+        if next_shape in PENTOMINOS:
+            self.tetromino = Pentomino(
+                next_shape,
+                self.sprites,
+                self.create_new_tetromino,
+                self.field_data
+            )
+        else:
+            self.tetromino = Tetromino(
+                next_shape,
+                self.sprites,
+                self.create_new_tetromino,
+                self.field_data
+            )
 
     def timer_update(self):
         for timer in self.timers.values():
@@ -160,82 +171,3 @@ class Game:
         self.display_surface.blit(self.surface, (PADDING,PADDING))
         pygame.draw.rect(self.display_surface, LINE_COLOR, self.rect, 2, 2)
 
-class Tetromino:
-    def __init__(self, shape, group, create_new_tetromino, field_data):
-
-        self.shape = shape
-        self.block_positions = SHAPE[shape]['shape']
-        self.color = SHAPE[shape]['color']
-        self.create_new_tetromino = create_new_tetromino
-        self.field_data = field_data
-        #create blocks
-        self.blocks = [Block(group, pos, self.color) for pos in self.block_positions]
-
-    #collisions
-    def next_move_horizontal_collide(self, blocks, amount):
-        collision_list = [block.horizontal_collide(int(block.pos.x + amount), self.field_data) for block in self.blocks]
-        return True if any(collision_list) else False
-
-    def next_move_vertical_collide(self, blocks, amount):
-        collision_list = [block.vertical_collide(int(block.pos.y + amount), self.field_data) for block in self.blocks]
-        return True if any(collision_list) else False
-
-
-    #movement
-    def move_horizontal(self, amount):
-        if not (self.next_move_horizontal_collide(self.blocks, amount) or self.next_move_vertical_collide(self.blocks, amount)):
-            for block in self.blocks:
-                block.pos.x += amount
-
-    def move_down(self):
-        if not self.next_move_vertical_collide(self.blocks, 1):
-            for block in self.blocks:
-                block.pos.y += 1
-        else:
-            for block in self.blocks:
-                self.field_data[int(block.pos.y)][int(block.pos.x)] = block
-            self.create_new_tetromino()
-
-    def rotate(self):
-        if self.shape not in NO_ROTATE_SHAPES:
-            pivot_position = self.blocks[0].pos
-            new_block_positions = [block.rotate(pivot_position) for block in self.blocks]
-
-            for pos in new_block_positions:
-                if pos.x < 0 or pos.x >= COLUMNS:
-                    return
-                if pos.y < 0 or pos.y >= ROWS:
-                    return
-                if self.field_data[int(pos.y)][int(pos.x)]:
-                    return
-            for i, block in enumerate(self.blocks):
-                block.pos = new_block_positions[i]
-
-class Block(pygame.sprite.Sprite):
-    def __init__(self, group, pos, color):
-        super().__init__(group)
-        self.image = pygame.Surface((CELL_SIZE, CELL_SIZE))
-        self.image.fill(color)
-
-        #pos
-        self.pos = pygame.Vector2(pos) + BLOCK_OFFSET
-        self.rect = self.image.get_rect(topleft = (self.pos * CELL_SIZE))
-
-    def rotate(self, pivot_position):
-        return pivot_position + (self.pos - pivot_position).rotate(90)
-
-    def horizontal_collide(self, x, field_data):
-        if not (0 <= x < COLUMNS):
-            return True
-
-        if field_data[int(self.pos.y)][x]:
-            return True
-
-    def vertical_collide(self, y, field_data):
-        if y >= ROWS:
-            return True
-        if y >= 0 and field_data[y][int(self.pos.x)]:
-            return True
-
-    def update(self):
-        self.rect.topleft = self.pos * CELL_SIZE
