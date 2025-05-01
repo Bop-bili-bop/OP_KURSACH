@@ -39,7 +39,6 @@ GRAY = '#1C1C1C'
 LINE_COLOR = '#FFFFFF'
 
 
-
 # shapes
 TETROMINOS = {
 	'T_Tetromino': {'shape': [(0,0), (-1,0), (1,0), (0,-1)], 'color': PURPLE},
@@ -71,7 +70,7 @@ PENTOMINOS = {
     'I_Pentomino': {'shape': [(0,0), (0,-1), (0,-2), (0,1), (0,2)], 'color': RED}
 }
 
-SHAPE = { **PENTOMINOS }
+SHAPE = { **TETROMINOS,**PENTOMINOS }
 NO_ROTATE_SHAPES = ['O_Tetromino', 'X_Pentomino']
 
 SCORE_DATA = {1: 100, 2: 300, 3: 700, 4: 1500, 5: 2500}
