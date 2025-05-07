@@ -1,12 +1,10 @@
-﻿from settings import *
-from sys import exit
-from os.path import join
-
+﻿import sys
+from menu import *
 #components
 from game import Game
 from score import Score
 from preview import Preview
-from random import choice
+from random import choice, randint
 
 class Main:
 	def __init__(self):
@@ -17,48 +15,80 @@ class Main:
 		self.clock = pygame.time.Clock()
 		pygame.display.set_caption('Tetris')
 
+		self.title_font = font_init(96)
+		self.menu_font = font_init(36)
+		self.ui = UIScreen(
+			surface=None,  # не потрібно
+			display_surface=self.display_surface,
+			font=self.menu_font,
+			big_font=None,  # не потрібно
+			title_font=self.title_font,
+			menu_font=self.menu_font,
+			clock=self.clock,
+			current_score=0
+		)
+		# show main menu and pick level
+		self.level = self.ui.show_menu()  # 1, 2 або 3
+
+		if self.level == 1:
+			self.shapes_list = list(TETROMINOS.keys())
+		elif self.level == 2:
+			self.shapes_list = list(PENTOMINOS.keys())
+		else:
+			self.shapes_list = list(SHAPE.keys())
+
 		#shapes
-		self.next_shapes = [choice(list(SHAPE.keys())) for shape in range(3)]
+		self.next_shapes = [choice(self.shapes_list) for shape in range(3)]
 		#components
 		self.game = Game(self.get_next_shape, self.update_score)
 		self.score = Score()
 		self.preview = Preview()
 
-		self.music = pygame.mixer.Sound(join('..', 'sounds', 'music.wav'))
-		self.music.set_volume(0.2)
-		self.music.play(-1)
+
 
 	def update_score(self, lines, score, level):
 		self.score.lines = lines
 		self.score.score = score
 		self.score.level = level
 
-
-
 	def get_next_shape(self):
 		next_shape = self.next_shapes.pop(0)
-		self.next_shapes.append(choice(list(SHAPE.keys())))
+		self.next_shapes.append(choice(self.shapes_list))
 		return next_shape
 
 	def run(self):
 		while True:
-			for event in pygame.event.get():
-				if event.type == pygame.QUIT:
-					pygame.quit()
-					exit()
+			self.game.quit_to_menu = False  # reset the flag before game starts
 
-			# display
-			self.display_surface.fill(GRAY)
+			while not self.game.quit_to_menu:
+				for event in pygame.event.get():
+					if event.type == pygame.QUIT:
+						pygame.quit()
+						sys.exit()
 
+				self.display_surface.fill(GRAY)
+				self.game.run()
+				self.score.run()
+				self.preview.run(self.next_shapes)
+				pygame.display.update()
+				self.clock.tick()
 
-			self.game.run()
-			self.score.run()
-			self.preview.run(self.next_shapes)
+			# when game is over or user quits to menu
+			self.level = self.ui.show_menu()
 
+			# update shape list
+			if self.level == 1:
+				self.shapes_list = list(TETROMINOS.keys())
+			elif self.level == 2:
+				self.shapes_list = list(PENTOMINOS.keys())
+			else:
+				self.shapes_list = list(SHAPE.keys())
 
-			# updating the game
-			pygame.display.update()
-			self.clock.tick()
+			# reinitialize components
+			self.next_shapes = [choice(self.shapes_list) for shape in range(3)]
+			self.game = Game(self.get_next_shape, self.update_score)
+			self.score = Score()
+			self.preview = Preview()
 
 if __name__ == '__main__':
 	main = Main()

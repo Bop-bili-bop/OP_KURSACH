@@ -1,4 +1,6 @@
-﻿import pygame
+﻿from utils import *
+
+
 
 # Game size
 COLUMNS = 10
@@ -37,7 +39,6 @@ BEIGE = '#f6ca9f'
 TOXIC = '#8cff00'
 GRAY = '#1C1C1C'
 LINE_COLOR = '#FFFFFF'
-
 
 # shapes
 TETROMINOS = {
