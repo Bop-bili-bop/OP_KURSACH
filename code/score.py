@@ -7,7 +7,7 @@ class Score:
         self.rect = self.surface.get_rect(bottomright = (WINDOW_WIDTH - PADDING, WINDOW_HEIGHT - PADDING))
         self.display_surface = pygame.display.get_surface()
 
-        self.font = pygame.font.Font(join('..', 'graphics', 'Russo_One.ttf'), 30)
+        self.font = pygame.font.Font(join('..', 'graphics', 'font.ttf'), 20)
 
         self.increment_height = self.surface.get_height() / 2
 
