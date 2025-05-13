@@ -2,7 +2,6 @@
 from timer import Timer
 from menu import *
 from shapemino import *
-from utils import *
 
 class Game:
     def __init__(self, get_next_shape, update_score):
@@ -77,6 +76,7 @@ class Game:
         self.timers['vertical move'].activate()
 
         # audio
+        self.game_over_sound_played = False
         music_path = join('..', 'sounds', 'music.wav')
         self.music = pygame.mixer.music
         self.music.load(music_path)
@@ -100,7 +100,7 @@ class Game:
         self.current_lines += num_lines
         self.current_score += SCORE_DATA[num_lines] * self.current_level
 
-        if self.current_score > 200:
+        if self.current_score > 10000 and self.current_level < 3:
             self.current_level += 1
         self.update_score(self.current_lines, self.current_score, self.current_level)
 
@@ -219,6 +219,9 @@ class Game:
         self.sprites.draw(self.surface)
         self.draw_grid()
         if self.game_over:
+            if not self.game_over_sound_played:
+                self.game_over_sound.play()
+                self.game_over_sound_played = True
             self.music.stop()
             self.ui.current_score = self.current_score
             self.ui.draw_game_over_screen()

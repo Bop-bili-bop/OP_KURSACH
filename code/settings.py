@@ -1,7 +1,7 @@
-﻿from utils import *
-
-
-
+﻿import pygame
+from os.path import join
+def font_init(size):
+    return pygame.font.Font(join('..', 'graphics', 'font.ttf'), size)
 # Game size
 COLUMNS = 10
 ROWS = 20
